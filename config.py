@@ -66,3 +66,8 @@ TRAIN_CONFIG = {
     'save': True,
     'resume': False
 }
+
+# ==========================================
+# Evaluation Configuration
+# ==========================================
+EVAL_MODEL_PATH = "runs/detect/mvtec_defect_detection/yolov11m_phase3/weights/best.pt"
