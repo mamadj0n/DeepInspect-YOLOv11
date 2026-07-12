@@ -5,7 +5,7 @@ import pandas as pd
 from ultralytics import YOLO
 
 # وارد کردن متغیرها از فایل تنظیمات
-from config import DATA_ROOT, EVAL_MODEL_PATH
+from config import DATA_ROOT, MODEL_PATH
 
 class MVTecEvaluator:
     """
@@ -136,7 +136,7 @@ class MVTecEvaluator:
 
 if __name__ == "__main__":
     evaluator = MVTecEvaluator(
-        model_path=EVAL_MODEL_PATH, 
+        model_path=MODEL_PATH, 
         dataset_root=str(DATA_ROOT), 
         conf_threshold=0.5
     )
