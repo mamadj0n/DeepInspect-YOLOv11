@@ -1,3 +1,6 @@
+import gradio as gr
+import json
+from DefectInference import DefectInference
 # Global variables for model caching (prevents reloading on every click)
 current_model = None
 current_settings = {}
@@ -68,7 +71,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
         # Configuration Column (Sidebar)
         with gr.Column(scale=1, variant="panel"):
             gr.Markdown("### ⚙️ Model Settings")
-            model_input = gr.Textbox(label="Model Path (best.pt)", value="/kaggle/working/runs/detect/mvtec_defect_detection/yolov11m_phase3/weights/best.pt")
+            model_input = gr.Textbox(label="Model Path (best.pt)", value="runs/detect/mvtec_defect_detection/yolov11m_phase3/weights/best.pt")
             conf_input = gr.Slider(minimum=0.0, maximum=1.0, value=0.25, step=0.05, label="Confidence Threshold")
             iou_input = gr.Slider(minimum=0.0, maximum=1.0, value=0.45, step=0.05, label="IoU Threshold")
         
