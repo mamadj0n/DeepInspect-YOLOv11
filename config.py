@@ -70,4 +70,4 @@ TRAIN_CONFIG = {
 # ==========================================
 # Evaluation Configuration
 # ==========================================
-EVAL_MODEL_PATH = "runs/detect/mvtec_defect_detection/yolov11m_phase3/weights/best.pt"
+MODEL_PATH = "runs/detect/mvtec_defect_detection/yolov11m_phase3/weights/best.pt"
