@@ -1,0 +1,9 @@
+ultralytics
+gradio
+opencv-python
+torch
+PyYAML
+numpy
+pandas
+tqdm
+scikit-learn
