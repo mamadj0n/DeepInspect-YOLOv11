@@ -236,7 +236,7 @@ with st.sidebar:
     st.markdown("## ⚙️ Settings")
     
     st.markdown("### Model Parameters")
-    model_path = st.text_input("Model Path", value="best.pt")
+    model_path = "best.pt"
     
     conf_threshold = st.slider(
         "Confidence Threshold",
