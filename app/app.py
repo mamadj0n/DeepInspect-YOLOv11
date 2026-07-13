@@ -18,8 +18,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-torch.serialization.weights_only_default = False
-
 # ==========================================
 # Download model
 # ==========================================
@@ -55,7 +53,7 @@ class ModelManager:
     def get_model(self, model_path='best.pt'):
         if self._model is None:
             with st.spinner("🔄 Loading model..."):
-                self._model = YOLO(model_path)
+                self._model = YOLO(model_path, weights_only=False)
         return self._model
 
 # ==========================================
