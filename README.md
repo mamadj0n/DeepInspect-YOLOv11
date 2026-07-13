@@ -737,4 +737,4 @@ If DeepInspect-YOLOv11 helps your project:
 
 ---
 
-✨ Built with ❤️ using YOLOv11 and Streamlit ✨
+✨ Built with ❤️ using YOLOv11 and Streamlit 
