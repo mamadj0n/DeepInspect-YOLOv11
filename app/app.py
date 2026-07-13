@@ -473,6 +473,6 @@ with tab3:
 st.markdown("---")
 st.markdown("""
     <div style="text-align: center; color: #666; font-size: 0.9em; padding: 1rem 0;">
-        Built with ❤️ using YOLO and Streamlit | Powered by Hugging Face Spaces
+        Built with ❤️ using YOLO and Streamlit | Powered by Streamlit Cluod | MODSO
     </div>
 """, unsafe_allow_html=True)
