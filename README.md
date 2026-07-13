@@ -723,13 +723,9 @@ If DeepInspect-YOLOv11 helps your project:
 
 ## 📈 Project Statistics
 
-| Metric | Badge |
-|--------|-------|
-| **Stars** | [![GitHub Stars](https://img.shields.io/github/stars/mamadj0n/DeepInspect-YOLOv11?style=social)](https://github.com/mamadj0n/DeepInspect-YOLOv11) |
-| **Forks** | [![GitHub Forks](https://img.shields.io/github/forks/mamadj0n/DeepInspect-YOLOv11?style=social)](https://github.com/mamadj0n/DeepInspect-YOLOv11) |
-| **Watchers** | [![GitHub Watchers](https://img.shields.io/github/watchers/mamadj0n/DeepInspect-YOLOv11?style=social)](https://github.com/mamadj0n/DeepInspect-YOLOv11) |
-| **Python** | ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg) |
-| **License** | ![MIT License](https://img.shields.io/badge/license-MIT-green.svg) |
+| Metric | **Stars** | **Forks** | **Watchers** | **Python** | **License** |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Badge** | [![GitHub Stars](https://img.shields.io/github/stars/mamadj0n/DeepInspect-YOLOv11?style=social)](https://github.com/mamadj0n/DeepInspect-YOLOv11) | [![GitHub Forks](https://img.shields.io/github/forks/mamadj0n/DeepInspect-YOLOv11?style=social)](https://github.com/mamadj0n/DeepInspect-YOLOv11) | [![GitHub Watchers](https://img.shields.io/github/watchers/mamadj0n/DeepInspect-YOLOv11?style=social)](https://github.com/mamadj0n/DeepInspect-YOLOv11) | ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg) | ![MIT License](https://img.shields.io/badge/license-MIT-green.svg) |
 
 ---
 
@@ -741,6 +737,4 @@ If DeepInspect-YOLOv11 helps your project:
 
 ---
 
-```
 ✨ Built with ❤️ using YOLOv11 and Streamlit ✨
-```
