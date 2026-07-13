@@ -1,3 +1,8 @@
+---
+**🇮🇷 مطالعه به زبان فارسی**
+برای خواندن راهنما و جزئیات پروژه به زبان فارسی، لطفاً به فایل [READMEfa.md](READMEfa.md) مراجعه کنید.
+---
+
 # 🔍 DeepInspect-YOLOv11
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
