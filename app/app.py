@@ -1,9 +1,37 @@
 import streamlit as st
+import os
+import urllib.request
+import torch
+
+# ==========================================
+# 🔥 مهم: غیرفعال کردن weights_only برای کل برنامه
+# ==========================================
+torch.serialization.weights_only_default = False
+
+# ==========================================
+# دانلود مدل
+# ==========================================
+def ensure_model_exists():
+    model_path = "best.pt"
+    if not os.path.exists(model_path):
+        with st.spinner("📥 Downloading model... Please wait..."):
+            url = "https://github.com/mamadj0n/DeepInspect-YOLOv11/releases/download/v1.0.0/best.pt"
+            try:
+                urllib.request.urlretrieve(url, model_path)
+                st.success("✅ Model downloaded successfully!")
+            except Exception as e:
+                st.error(f"❌ Download failed: {e}")
+                st.stop()
+
+ensure_model_exists()
+
+# ==========================================
+# ادامه‌ی کد اصلی
+# ==========================================
 import cv2
 import numpy as np
 from PIL import Image
 import tempfile
-import os
 from pathlib import Path
 import json
 from ultralytics import YOLO
@@ -17,26 +45,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# ==========================================
-# Download model
-# ==========================================
-def ensure_model_exists():
-    import urllib.request
-    model_path = "best.pt"
-    
-    if not os.path.exists(model_path):
-        with st.spinner("📥 Downloading model... Please wait..."):
-            url = "https://github.com/mamadj0n/DeepInspect-YOLOv11/releases/download/v1.0.0/best.pt"
-            try:
-                urllib.request.urlretrieve(url, model_path)
-                st.success("✅ Model downloaded successfully!")
-            except Exception as e:
-                st.error(f"❌ Failed to download model: {e}")
-                st.stop()
-
-# اجرای دانلود مدل
-ensure_model_exists()
 
 # ==========================================
 # کلاس مدیریت مدل
@@ -53,76 +61,9 @@ class ModelManager:
     def get_model(self, model_path='best.pt'):
         if self._model is None:
             with st.spinner("🔄 Loading model..."):
-                self._model = YOLO(model_path, weights_only=False)
+                # بارگذاری مدل (بدون پارامتر weights_only)
+                self._model = YOLO(model_path)
         return self._model
-
-# ==========================================
-# توابع کمکی
-# ==========================================
-def process_image(model, image, conf_threshold, iou_threshold):
-    """پردازش یک تصویر"""
-    results = model(image, conf=conf_threshold, iou=iou_threshold)
-    
-    # استخراج نتایج
-    detections = []
-    if results[0].boxes is not None:
-        for box in results[0].boxes:
-            detections.append({
-                'class': model.names[int(box.cls)],
-                'confidence': float(box.conf),
-                'bbox': box.xyxy.tolist()[0]
-            })
-    
-    # رسم روی تصویر
-    annotated_img = results[0].plot()
-    annotated_img = cv2.cvtColor(annotated_img, cv2.COLOR_BGR2RGB)
-    
-    return annotated_img, detections
-
-def process_video(model, video_path, conf_threshold, iou_threshold):
-    """پردازش ویدیو"""
-    cap = cv2.VideoCapture(video_path)
-    fps = int(cap.get(cv2.CAP_PROP_FPS))
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    
-    # ایجاد فایل موقت برای خروجی
-    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
-    output_path = temp_file.name
-    
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
-    
-    progress_bar = st.progress(0)
-    status_text = st.empty()
-    
-    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    processed_frames = 0
-    
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if not ret:
-            break
-        
-        # پردازش فریم
-        results = model(frame, conf=conf_threshold, iou=iou_threshold)
-        annotated_frame = results[0].plot()
-        
-        # ذخیره فریم
-        out.write(annotated_frame)
-        
-        # به‌روزرسانی پیشرفت
-        processed_frames += 1
-        progress = processed_frames / frame_count
-        progress_bar.progress(progress)
-        status_text.text(f"Processing: {processed_frames}/{frame_count} frames")
-    
-    cap.release()
-    out.release()
-    progress_bar.empty()
-    status_text.empty()
-    
-    return output_path
 
 # ==========================================
 # استایل‌های CSS
@@ -185,7 +126,6 @@ st.markdown("""
 with st.sidebar:
     st.markdown("## ⚙️ Settings")
     
-    # تنظیمات مدل
     st.markdown("### Model Parameters")
     model_path = st.text_input("Model Path", value="best.pt")
     
@@ -222,6 +162,67 @@ with st.sidebar:
         st.stop()
 
 # ==========================================
+# توابع پردازش
+# ==========================================
+def process_image(model, image, conf_threshold, iou_threshold):
+    """پردازش یک تصویر"""
+    results = model(image, conf=conf_threshold, iou=iou_threshold)
+    
+    detections = []
+    if results[0].boxes is not None:
+        for box in results[0].boxes:
+            detections.append({
+                'class': model.names[int(box.cls)],
+                'confidence': float(box.conf),
+                'bbox': box.xyxy.tolist()[0]
+            })
+    
+    annotated_img = results[0].plot()
+    annotated_img = cv2.cvtColor(annotated_img, cv2.COLOR_BGR2RGB)
+    
+    return annotated_img, detections
+
+def process_video(model, video_path, conf_threshold, iou_threshold):
+    """پردازش ویدیو"""
+    cap = cv2.VideoCapture(video_path)
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
+    output_path = temp_file.name
+    
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+    
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+    
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    processed_frames = 0
+    
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+        
+        results = model(frame, conf=conf_threshold, iou=iou_threshold)
+        annotated_frame = results[0].plot()
+        out.write(annotated_frame)
+        
+        processed_frames += 1
+        progress = processed_frames / frame_count
+        progress_bar.progress(progress)
+        status_text.text(f"Processing: {processed_frames}/{frame_count} frames")
+    
+    cap.release()
+    out.release()
+    progress_bar.empty()
+    status_text.empty()
+    
+    return output_path
+
+# ==========================================
 # تب‌های اصلی
 # ==========================================
 tab1, tab2, tab3 = st.tabs(["🖼️ Single Image", "📂 Batch Processing", "🎥 Video Analysis"])
@@ -248,27 +249,21 @@ with tab1:
         st.markdown("### 📥 Detection Result")
         if uploaded_file is not None:
             if st.button("🔍 Detect Defects", key="detect_single"):
-                # تبدیل به numpy array
                 image_np = np.array(image)
                 
-                # پردازش
                 with st.spinner("Detecting defects..."):
                     annotated_img, detections = process_image(
                         model, image_np, conf_threshold, iou_threshold
                     )
                 
-                # نمایش نتیجه
                 st.image(annotated_img, caption="Detection Result", use_column_width=True)
                 
-                # نمایش اطلاعات
                 if detections:
                     st.markdown(f"### ✅ Found {len(detections)} defects")
                     
-                    # نمایش جزئیات
                     with st.expander("📋 Detection Details"):
                         st.json(detections)
                     
-                    # نمایش جدول
                     df_data = []
                     for d in detections:
                         df_data.append({
@@ -323,13 +318,11 @@ with tab2:
             progress_bar.empty()
             status_text.empty()
             
-            # نمایش نتایج در گالری
             cols = st.columns(3)
             for idx, result in enumerate(results):
                 with cols[idx % 3]:
                     st.image(result['image'], caption=f"{result['name']} ({result['count']} defects)", use_column_width=True)
             
-            # نمایش خلاصه
             st.markdown("### 📊 Summary")
             summary_data = []
             for r in results:
@@ -355,7 +348,6 @@ with tab3:
         )
         
         if video_file is not None:
-            # ذخیره ویدیو موقت
             temp_video = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
             temp_video.write(video_file.read())
             video_path = temp_video.name
@@ -374,12 +366,10 @@ with tab3:
                     
                     st.success("✅ Video processed successfully!")
                     
-                    # نمایش ویدیو
                     with open(output_path, 'rb') as f:
                         video_bytes = f.read()
                     st.video(video_bytes)
                     
-                    # پاک کردن فایل‌های موقت
                     os.unlink(video_path)
                     os.unlink(output_path)
                     
