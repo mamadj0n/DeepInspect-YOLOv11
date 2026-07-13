@@ -1,7 +1,8 @@
----
-**🇮🇷 مطالعه به زبان فارسی**
-برای خواندن راهنما و جزئیات پروژه به زبان فارسی، لطفاً به فایل [READMEfa.md](READMEfa.md) مراجعه کنید.
----
+<div align="center">
+
+[![Persian README](https://img.shields.io/badge/Language-Persian/فارسی-green.svg)](READMEfa.md)
+
+</div>
 
 # 🔍 DeepInspect-YOLOv11
 
