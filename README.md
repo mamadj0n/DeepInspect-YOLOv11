@@ -1,11 +1,6 @@
-<div align="center">
-
-[![Persian README](https://img.shields.io/badge/Language-Persian/فارسی-green.svg)](READMEfa.md)
-
-</div>
-
 # 🔍 DeepInspect-YOLOv11
 
+[![Persian README](https://img.shields.io/badge/Language-Persian/فارسی-green.svg)](READMEfa.md)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.35+-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![YOLO](https://img.shields.io/badge/YOLO-v11-FF0000?logo=yolo&logoColor=white)](https://docs.ultralytics.com/)
