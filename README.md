@@ -1,4 +1,3 @@
-```markdown
 # 🔍 DeepInspect-YOLOv11
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
