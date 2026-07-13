@@ -9,6 +9,25 @@ import json
 from ultralytics import YOLO
 
 # ==========================================
+# Download model
+# ==========================================
+def ensure_model_exists():
+    import urllib.request
+    model_path = "best.pt"
+    
+    if not os.path.exists(model_path):
+        with st.spinner("📥 Downloading model... Please wait..."):
+            url = "https://github.com/mamadj0n/DeepInspect-YOLOv11/releases/download/v1.0.0/best.pt"
+            try:
+                urllib.request.urlretrieve(url, model_path)
+                st.success("✅ Model downloaded successfully!")
+            except Exception as e:
+                st.error(f"❌ Failed to download model: {e}")
+                st.stop()
+
+# اجرای دانلود مدل
+ensure_model_exists()
+# ==========================================
 # تنظیمات صفحه
 # ==========================================
 st.set_page_config(
