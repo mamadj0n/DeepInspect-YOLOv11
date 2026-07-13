@@ -91,11 +91,11 @@
 
 | Metric | Value |
 |--------|-------|
-| **Precision** | 94.2% |
-| **Recall** | 91.8% |
-| **F1-Score** | 93.0% |
+| **Precision** | 98.2% |
+| **Recall** | 95.8% |
+| **F1-Score** | 97.0% |
 | **mAP@50** | 95.1% |
-| **Inference Speed** | 45-50 ms |
+| **Inference Speed** | 25-30 ms |
 | **Model Size** | 48.4 MB |
 
 ### Evaluation Curves
