@@ -18,6 +18,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+torch.serialization.weights_only_default = False
+
 # ==========================================
 # Download model
 # ==========================================
