@@ -162,49 +162,59 @@
 
 ### پیش‌نیازهای سیستم:
 
-```bash
 # برای Ubuntu/Debian:
+
+```bash
 sudo apt-get install python3-dev python3-pip
+```
 
 # برای macOS:
+```bash
 brew install python@3.10
-
+```
 # برای Windows:
 # از Python.org دانلود کنید
 📥 نحوه نصب و راه‌اندازی
 گام ۱: کلون کردن مخزن
-bash
+```bash
 git clone https://github.com/mamadj0n/DeepInspect-YOLOv11.git
 cd DeepInspect-YOLOv11
+```
 گام ۲: ایجاد محیط مجازی (توصیه می‌شود)
-bash
+```bash
 python -m venv venv
+```
 
 # روی Windows:
+```
 venv\Scripts\activate
-
+```
 # روی macOS/Linux:
+```
 source venv/bin/activate
+```
 گام ۳: نصب کتابخانه‌های مورد نیاز
-bash
+
 # برای اجرای برنامه (توصیه شده):
+```bash
 pip install -r app/requirements.txt
-
-# یا برای نصب کامل (آموزش و ارزیابی):
-pip install -r requirements.txt
+```
 گام ۴: نصب وابستگی‌های سیستم
-bash
+
 # برای Ubuntu/Debian:
+```bash
 sudo apt-get install ffmpeg
-
+```
 # برای macOS:
+```bash
 brew install ffmpeg
-
+```
 # برای Windows:
 # از https://ffmpeg.org/download.html دانلود کنید
 گام ۵: اجرای برنامه
-bash
+```bash
 streamlit run app/app.py
+```
 برنامه به‌صورت خودکار در آدرس http://localhost:8501 باز می‌شود.
 
 🚀 نحوه استفاده
@@ -233,7 +243,8 @@ streamlit run app/app.py
 Confidence Threshold	0.0 - 1.0	حداقل امتیاز اطمینان برای تشخیص
 IoU Threshold	0.0 - 1.0	آستانه تقاطع برای فیلترکردن دکتشن‌های تکراری
 📁 ساختار پروژه
-Code
+
+```Code
 DeepInspect-YOLOv11/
 │
 ├── app/
@@ -265,6 +276,7 @@ DeepInspect-YOLOv11/
 ├── packages.txt               # 📚 بسته‌های سیستم
 ├── LICENSE                    # 📜 مجوز
 └── README.md                  # 📖 این فایل
+```
 🛠️ تکنولوژی‌های استفاده شده
 تکنولوژی	توضیح	نسخه
 Python	زبان برنامه‌نویسی اصلی	3.10+
@@ -278,7 +290,7 @@ Pandas	تحلیل و پردازش داده‌ها	2.0+
 scikit-learn	تقسیم داده‌های استراتژیک	1.3+
 📊 نمونه نتایج
 خروجی JSON
-JSON
+```JSON
 {
   "image_path": "test_image.jpg",
   "inference_time_ms": 45.32,
@@ -304,6 +316,7 @@ JSON
     }
   ]
 }
+```
 جدول خروجی دسته‌ای
 Image	Defects Found	Inference Time
 img1.jpg	2	42.15 ms
@@ -313,8 +326,9 @@ img3.jpg	0	38.42 ms
 دانلود خودکی
 مدل YOLO به‌صورت خودکی بر اساس اینترنت در اولین اجرای برنامه دانلود می‌شود:
 
-Code
+```Code
 📥 https://github.com/mamadj0n/DeepInspect-YOLOv11/releases/download/v1.0.0/best.pt
+```
 دانلود دستی
 اگر دانلود خودکار ناموفق بود:
 
@@ -322,8 +336,9 @@ Code
 فایل best.pt را دانلود کنید
 فایل را در پوشه اصلی پروژه قرار دهید
 بررسی وزن‌های مدل
-bash
+```bash
 python -c "from ultralytics import YOLO; model = YOLO('best.pt'); print(model.info())"
+```
 🎨 رنگ‌کدگذاری و قراردادها
 برنامه برای بهتر دیدن عیوب از رنگ‌های مختلف استفاده می‌کند:
 
@@ -334,14 +349,13 @@ python -c "from ultralytics import YOLO; model = YOLO('best.pt'); print(model.in
 
 ⚡ نکات بهینه‌سازی
 برای سرعت بیشتر ⚡
-Python
 # ✅ روش‌های بهینه‌سازی:
 1. GPU را فعال کنید (NVIDIA CUDA)
 2. Confidence Threshold را افزایش دهید (مثلاً 0.5 به جای 0.25)
 3. از Frame Interval در ویدیو استفاده کنید (مثلاً skip every 2 frames)
 4. مدل کوچک‌تر استفاده کنید (اگر سرعت مهم‌تر از دقت است)
 برای دقت بیشتر 🎯
-Python
+
 # ✅ روش‌های افزایش دقت:
 1. Confidence Threshold را کاهش دهید (0.15-0.2)
 2. از تصاویر با کیفیت بالا استفاده کنید
@@ -349,29 +363,32 @@ Python
 4. IoU Threshold را کاهش دهید برای تشخیص‌های دقیق‌تر
 🐛 رفع مشکلات رایج
 ❌ خطای "Model not found"
-bash
+```bash
 # ✅ راه‌حل ۱: مدل را دوباره دانلود کنید
 rm best.pt
+```
 # سپس برنامه را دوباره اجرا کنید
 
 # ✅ راه‌حل ۲: دانلود دستی
+```bash
 wget https://github.com/mamadj0n/DeepInspect-YOLOv11/releases/download/v1.0.0/best.pt
+```
 ❌ خطای CUDA/GPU
 bash
 # اگر GPU موجود نیست:
 # ✅ مدل به‌صورت خودکار روی CPU اجرا می‌شود (کندتر)
 
 # بررسی GPU:
-python -c "import torch; print(torch.cuda.is_available())"
+```python
+-c "import torch; print(torch.cuda.is_available())"```
 ❌ بالا نبودن دقت
-bash
 # ✅ راه‌حل‌ها:
 1. Confidence Threshold را از 0.25 به 0.15 تغییر دهید
 2. IoU Threshold را از 0.45 به 0.3 تغییر دهید
 3. تصاویر درون‌رفت را افزایش دهید (Resolution >= 640x640)
 4. مدل را Fine-tune کنید با داده‌های خود (آموزش مجدد)
 ❌ خطای حافظه (OutOfMemory)
-bash
+
 # ✅ راه‌حل‌ها:
 1. Batch size را کاهش دهید
 2. از GPU کاهش‌یافته استفاده کنید
@@ -379,38 +396,9 @@ bash
 📝 مجوز و حقوق
 این پروژه تحت مجوز MIT منتشر شده است. برای جزئیات بیشتر به فایل LICENSE مراجعه کنید.
 
-Code
+
 MIT License - استفاده آزاد برای مقاصد تجاری و غیرتجاری
-توجه به اپلیکیشن‌های صنعتی
-اگر از این پروژه برای کاربردهای صنعتی استفاده می‌کنید، لطفاً:
 
-✅ نسخه خود را Test کنید
-✅ مدل را برای داده‌های خاص fine-tune کنید
-✅ نتایج را با متخصصان تأیید کنید
-✅ مسئولیت قانونی را بپذیرید
-🤝 مشارکت در پروژه
-اگر می‌خواهید به این پروژه کمک کنید:
-
-مراحل مشارکت
-✅ Fork مخزن را کنید
-bash
-git clone https://github.com/YOUR_USERNAME/DeepInspect-YOLOv11.git
-✅ Branch جدید ایجاد کنید
-bash
-git checkout -b feature/بهبود-شما
-✅ تغییرات را Commit کنید
-bash
-git commit -m "توضیح تغییرات: بهبود دقت مدل +"
-✅ Push به branch
-bash
-git push origin feature/بهبود-شما
-✅ Pull Request بفرستید
-مناطق نیاز به کمک
-🔧 بهبود کارایی کد
-📚 بهتر کردن اسناد
-🐛 رفع باگ‌ها
-✨ اضافه کردن ویژگی‌های جدید
-🌐 ترجمه اسناد
 📞 تماس و پیوندها
 👤 توسعه‌دهنده: @mamadj0n
 🔗 مخزن: DeepInspect-YOLOv11
