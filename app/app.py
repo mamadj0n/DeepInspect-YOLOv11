@@ -9,6 +9,16 @@ import json
 from ultralytics import YOLO
 
 # ==========================================
+# تنظیمات صفحه
+# ==========================================
+st.set_page_config(
+    page_title="AI Defect Detection",
+    page_icon="🔍",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# ==========================================
 # Download model
 # ==========================================
 def ensure_model_exists():
@@ -27,15 +37,6 @@ def ensure_model_exists():
 
 # اجرای دانلود مدل
 ensure_model_exists()
-# ==========================================
-# تنظیمات صفحه
-# ==========================================
-st.set_page_config(
-    page_title="AI Defect Detection",
-    page_icon="🔍",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
 
 # ==========================================
 # کلاس مدیریت مدل
