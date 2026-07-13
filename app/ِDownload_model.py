@@ -3,7 +3,7 @@ import urllib.request
 
 def download_model_weights():
     # مسیری که می‌خواهید مدل در آن ذخیره شود
-    save_path = "weights/best.pt"
+    save_path = "best.pt"
     
     # لینک دانلودی که از GitHub Releases یا Hugging Face گرفته‌اید
     url = "https://github.com/mamadj0n/DeepInspect-YOLOv11/releases/download/v1.0.0/best.pt"
